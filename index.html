@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Another Weather App</title>
+
+	<link rel="icon" type="image/ico" href="http://www.mobilizecloud.com/favicon.ico">
+
+	<link rel="stylesheet" href="http://bootswatch.com/cosmo/bootstrap.min.css">
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/weather-icons.css">
+	<link rel="stylesheet" href="css/main.css">
+
+	<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	<script src="js/main.js"></script>
+
+</head>
+<body>
+	<div class="container">
+		<h1><strong><i class="wi wi-tornado"></i> Another Weather App</strong></h1>
+		<div class="page-header">
+			<ul class="nav nav-pills">
+				<li role="presentation"><a href="#" class="disabled">Locations: </a></li>
+		  	<li role="presentation" class="active"><a>Portland, OR</a></li>
+		  	<li role="presentation" class="active"><a>Syracuse, NY</a></li>
+		  	<li role="presentation" class="active"><a id="add-location"><i class="fa fa-plus-circle"></i></a></li>
+			</ul>
+		</div> <!-- /page-header -->
+
+		<!-- LOCATION WRAPPER -->
+		<div class="panel panel-primary" data-city="Portland, OR" hidden>
+			<div class="panel-heading"><strong>Portland, OR</strong></div>
+  		<div class="panel-body">
+				<div class="container-fluid">
+
+					<!-- ALERT -->
+					<div class="row weather-alert" hidden>
+						<div class="col-md-11">
+							<div class="panel panel-danger">
+								<div class="panel-heading">ALERT</div>
+								<div class="panel-body alert-text"></div> <!-- /panel-body -->
+							</div> <!-- /panel -->
+						</div>
+					</div> <!-- /row -->
+
+					<div class="row">
+
+						<!-- CURRENTLY -->
+						<div class="col-md-6">
+							<div class="panel panel-default currently">
+								<div class="panel-heading">CURRENTLY</div>
+								<div class="panel-body">
+									<div class="row">
+										<div class="col-md-4">
+											<i class="current-icon"></i>
+											<p class="current-summary"></p>
+										</div>
+										<div class="col-md-8 current-temp-wrapper">
+											<p>Currently: <strong><span class="current-temp"></span><i class="wi wi-fahrenheit"></i></strong></p>
+											<p>Max/min: <strong><span class="max-temp"></span><i class="wi wi-fahrenheit"></i></strong> / <strong><span class="min-temp"></span><i class="wi wi-fahrenheit"></i></strong></p>
+											<p>Humidity: <span class="current-humidity"></span>%</p>
+											<p>Sunrise: <span class="today-sunrise"></span> / Sunset: <span class="today-sunset"></span></p>
+										</div>
+									</div>					
+								</div> <!-- /panel-body -->
+							</div> <!-- /panel -->
+						</div>
+
+						<!-- LATER -->
+						<div class="col-md-5">
+							<div class="panel panel-default later">
+								<div class="panel-heading">LATER</div>
+								<div class="panel-body">
+									<div class="row">
+										<div class="col-md-4">
+											<i class="current-icon"></i>
+											<p class="current-summary"></p>
+										</div>
+										<div class="col-md-8 current-temp-wrapper">
+											<p>Temperature: <strong><span class="later-temp"></span><i class="wi wi-fahrenheit"></i></strong></p>
+											<p>Max/min: <strong><span class="max-temp"></span><i class="wi wi-fahrenheit"></i></strong> / <strong><span class="min-temp"></span><i class="wi wi-fahrenheit"></i></strong></p>
+											<p>Humidity: <span class="current-humidity"></span>%</p>
+											<p>Sunrise: <span class="today-sunrise"></span> / Sunset: <span class="today-sunset"></span></p>
+										</div>
+									</div>					
+								</div> <!-- /panel-body -->
+						</div> <!-- /panel -->
+
+					</div> <!-- /row -->
+
+					<!-- HOURLY -->
+					<div class="row">
+						<div class="col-md-11">
+							<div class="panel panel-default hourly">
+								<div class="panel-heading">HOURLY</div>
+								<div class="panel-body"></div> <!-- /panel-body -->
+							</div> <!-- /panel -->
+						</div>
+					</div> <!-- /row -->
+
+					<!-- 5 DAY FORECAST -->
+					<div class="row">
+						<div class="col-md-11">
+							<div class="panel panel-default 5-day-forecast">
+								<div class="panel-heading">5 DAY FORECAST</div>
+								<div class="panel-body"></div> <!-- /panel-body -->
+							</div> <!-- /panel -->
+						</div>
+					</div> <!-- /row -->
+
+				</div> <!-- /container -->
+  		</div> <!-- /panel-body -->
+		</div> <!-- /panel-default -->
+	</div><!-- /container -->
+</body>
+</html>

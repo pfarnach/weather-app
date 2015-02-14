@@ -1,0 +1,20 @@
+li a.disabled {
+	cursor: default;
+}
+
+.currently .current-icon {
+	padding-top: 2rem;
+	padding-left: 2rem;
+	font-size: 8rem;
+}
+
+.currently .current-summary {
+	padding-top: 1rem;
+	text-align: center;
+	font-weight: bold;
+	font-size: 2rem;
+}
+
+.currently .current-temp-wrapper {
+	font-size: 2rem;
+}
