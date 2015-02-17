@@ -1,12 +1,16 @@
-var latitude, longitude;
+var latitude, longitude, formatted_search_input;
 
 $(document).ready(function(){
 
-	function handle(e) {
-		if (e.keyCode === 13) {
-			alert("Enter was pressed");
+	$('#search-field').keypress(function(e) {
+		if (e.which == 13) {
+			var search_input = $(this).val();
+			$(this).val("");
+			// console.log(search_input.trim().replace(' ','+').replace(',',''));
+			formatted_search_input = search_input.trim().replace(' ','+').replace(',','');
+			get_coordinates(formatted_search_input);
 		}
-	}
+	});
 
 	function get_coordinates(location_name) {
 
@@ -21,13 +25,21 @@ $(document).ready(function(){
 
 			// The URL to make the request to.
 			// url: "https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyBsQg7uGxTdAUNaGVw4qWQ1wiYkfoPx6HQ",
-			url: "https://maps.googleapis.com/maps/api/geocode/json?address=Madrid,+Spain&key=AIzaSyBsQg7uGxTdAUNaGVw4qWQ1wiYkfoPx6HQ",
+			// url: "https://maps.googleapis.com/maps/api/geocode/json?address=manlius+ny&key=AIzaSyBsQg7uGxTdAUNaGVw4qWQ1wiYkfoPx6HQ",
+			url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + location_name + "&key=AIzaSyBsQg7uGxTdAUNaGVw4qWQ1wiYkfoPx6HQ",
 
 			success: function(data) {
-				latitude = data['results'][0]['geometry']['location']['lat'];
-				longitude = data['results'][0]['geometry']['location']['lng'];
-				console.log(data);
-				// format_location(data);
+				try {
+					latitude = data['results'][0]['geometry']['location']['lat'];
+					longitude = data['results'][0]['geometry']['location']['lng'];
+					console.log(data);
+					get_weather();		
+				}
+				catch(err) {
+					console.log("Invalid location.");
+					$('.container.panel-primary').hide();
+				}
+				
 			},
 
 			error: function() {
@@ -41,29 +53,31 @@ $(document).ready(function(){
 	
 	console.log(latitude + " " + longitude + "!");
 
-	$.ajax({
+	function get_weather() {
+		$.ajax({
 
-		// The 'type' property sets the HTTP method.
-		// A value of 'PUT' or 'DELETE' will trigger a preflight request.
-		type: 'GET',
+			// The 'type' property sets the HTTP method.
+			// A value of 'PUT' or 'DELETE' will trigger a preflight request.
+			type: 'GET',
 
-		dataType: 'jsonp',
+			dataType: 'jsonp',
 
-		// The URL to make the request to.
-		// url: "https://api.forecast.io/forecast/e27ae1f9f8be2c73c1648f94f81cf04a/" + latitude + "," + longitude,
-		url: "https://api.forecast.io/forecast/e27ae1f9f8be2c73c1648f94f81cf04a/43.0469,-76.1444",
-		// url: "https://api.forecast.io/forecast/e27ae1f9f8be2c73c1648f94f81cf04a/40.4,-3.6833",
+			// The URL to make the request to.
+			url: "https://api.forecast.io/forecast/e27ae1f9f8be2c73c1648f94f81cf04a/" + latitude + "," + longitude,
+			// url: "https://api.forecast.io/forecast/e27ae1f9f8be2c73c1648f94f81cf04a/43.0469,-76.1444",
+			// url: "https://api.forecast.io/forecast/e27ae1f9f8be2c73c1648f94f81cf04a/40.4,-3.6833",
 
-		success: function(data) {
-			// Here's where you handle a successful response.
-			format_data(data);
-		},
+			success: function(data) {
+				// Here's where you handle a successful response.
+				format_data(data);
+			},
 
-		error: function() {
-			console.log("AJAX request for Weather IO API failed.");
-		},
+			error: function() {
+				console.log("AJAX request for Weather IO API failed.");
+			},
 
-	});
+		});
+	}
 
 	function format_data(data) {
 

@@ -2,7 +2,7 @@ li a.disabled {
 	cursor: default;
 }
 
-.search-field {
+.search-wrapper {
 	float: right;
 	width: 25rem;
 }
