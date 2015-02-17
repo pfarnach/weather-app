@@ -2,19 +2,60 @@ li a.disabled {
 	cursor: default;
 }
 
+/*CURRENTLY*/
+
+.icon-summary-wrapper i {
+	margin: 0 auto;
+}
+
 .currently .current-icon {
-	padding-top: 2rem;
-	padding-left: 2rem;
+	padding: 2rem 0 2rem 2rem;
+	margin: 0 auto;
 	font-size: 8rem;
 }
 
 .currently .current-summary {
 	padding-top: 1rem;
-	text-align: center;
 	font-weight: bold;
 	font-size: 2rem;
+	text-align: center;
 }
 
 .currently .current-temp-wrapper {
 	font-size: 2rem;
+}
+
+/*LATER*/
+.later .later-icon {
+	padding: 2rem 0 2rem 2rem;
+	margin: 0 auto;
+	font-size: 8rem;
+}
+
+.later .later-summary {
+	padding-top: 1rem;
+	font-weight: bold;
+	font-size: 2rem;
+	text-align: center;
+}
+
+.later .later-temp-wrapper {
+	font-size: 2rem;
+}
+
+/*HOURLY*/
+.hour-section h3 {
+	margin-top: 0;
+}
+
+.hour-section i:nth-child(2) {
+	font-size: 4rem;
+}
+
+.hour-section i.wi-thermometer {
+	font-size: 2.5rem;
+}
+
+.hour-section i.wi-umbrella {
+	font-size: 1.7rem;
 }

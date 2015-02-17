@@ -29,41 +29,44 @@ $(document).ready(function(){
 
 
 		// ** CURRENTLY **
-		current_temp = Math.round(data['currently']['temperature']);
-		current_status = data['currently']['summary'];
-		current_icon = data['currently']['icon'];
-		unix_time = data['currently']['time'];
+		
+		// time
+		var unix_time = data['currently']['time'];
 		
 		// humidity
-		current_humidity = data['currently']['humidity'] * 100;
+		var current_humidity = Math.round(data['currently']['humidity'] * 100);
 		$('div[data-city="Portland, OR"] .current-humidity').html(current_humidity);
 
 		// summary
-		current_summary = data['currently']['summary'];
+		var current_summary = data['currently']['summary'];
 		$('div[data-city="Portland, OR"] .current-summary').html(current_summary);
 
-		// current temp
+		// temp
+		var current_temp = Math.round(data['currently']['temperature']);
 		$('div[data-city="Portland, OR"] .current-temp').html(current_temp);
-		add_icon_class(current_icon);
+
+		// icon
+		var current_icon = data['currently']['icon'];
+		add_icon_class(current_icon, ".current-icon");
 
 
 		// ** ALERTS **
 		try {
-			alert_description = data['alerts'][0]['description'];
-			alert_expires = data['alerts'][0]['expires'];
-			alert_time = data['alerts'][0]['time'];
-			alert_title = data['alerts'][0]['title'];
+			var alert_description = data['alerts'][0]['description'];
+			var alert_expires = data['alerts'][0]['expires'];
+			var alert_time = data['alerts'][0]['time'];
+			var alert_title = data['alerts'][0]['title'];
 
 			post_alert(alert_title, alert_description);	
 		} 
 		catch(err) {
-			console.log(err.message);
+			console.log("No current alerts.");
 		}
 		
 		// ** DAILY **
 		// Today's max/min temp
-		today_max_temp = Math.round(data['daily']['data'][0]['temperatureMax']);
-		today_min_temp = Math.round(data['daily']['data'][0]['temperatureMin']);
+		var today_max_temp = Math.round(data['daily']['data'][0]['temperatureMax']);
+		var today_min_temp = Math.round(data['daily']['data'][0]['temperatureMin']);
 		$('div[data-city="Portland, OR"] .current-temp-wrapper .max-temp').html(today_max_temp);
 		$('div[data-city="Portland, OR"] .current-temp-wrapper .min-temp').html(today_min_temp);
 
@@ -74,7 +77,63 @@ $(document).ready(function(){
 		$('div[data-city="Portland, OR"] .current-temp-wrapper .today-sunset').html(sunset.toLocaleTimeString(navigator.language, {timeZone: data['timezone'], hour: '2-digit', minute:'2-digit'}));
 
 
+		// ** LATER ** 
+
+		// temp
+		var later_temp = Math.round(data['hourly']['data'][6]['temperature']);
+		$('div[data-city="Portland, OR"] .later-temp').html(later_temp);
+
+		// temp change
+		var later_temp_change = later_temp - current_temp;
+		if (later_temp_change > 0) {
+			later_temp_change = "+" + later_temp_change;
+		}
+		$('div[data-city="Portland, OR"] .later-temp-change').html(later_temp_change);
+
+		// icon
+		var later_icon = data['hourly']['data'][6]['icon'];
+		add_icon_class(later_icon, ".later-icon");
+
+		// summary
+		var later_status = data['hourly']['data'][6]['summary'];
+		$('div[data-city="Portland, OR"] .later-summary').html(later_status);
+
+		// humidity 
+		var later_humidity = Math.round(data['hourly']['data'][6]['humidity'] * 100);
+		$('div[data-city="Portland, OR"] .later-humidity').html(later_humidity);
+
 		// ** HOURLY **
+		for (var i=1; i < 3; i++) {
+			var time = new Date(data['hourly']['data'][i]['time'] * 1000),
+				temp = Math.round(data['hourly']['data'][i]['temperature']),
+				summary = data['hourly']['data'][i]['summary'],
+				icon = data['hourly']['data'][i]['icon'],
+				precip = Math.round(data['hourly']['data'][i]['precipProbability'] * 100);
+
+			var hour = time.getHours();
+			var hour_suffix = hour >= 12 ? "pm" : "am";
+			hour = ((hour + 11) % 12);
+			console.log(hour + hour_suffix);
+
+			console.log(icon);
+
+			// time
+			$('div[data-city="Portland, OR"] .hour' + [i] +'-time').html(hour + hour_suffix);
+
+			// temp
+			$('div[data-city="Portland, OR"] .hour' + [i] +'-temp').html(" " + temp);
+
+			// summary
+			$('div[data-city="Portland, OR"] .hour' + [i] +'-summary').html(summary);
+
+			// icon
+			add_icon_class(icon, '.hour' + [i] +'-icon1');
+
+			// precip
+			$('div[data-city="Portland, OR"] .hour' + [i] +'-precip').html(" " + precip);
+		}
+
+
 
 		// info about converting UNIX time: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date
 		var date = new Date(unix_time*1000);
@@ -85,11 +144,9 @@ $(document).ready(function(){
 		var hours = date.getHours();
 		var minutes = date.getMinutes();
 		var seconds = date.getSeconds();
-		console.log(date.toDateString() + " at " + date.toLocaleTimeString());
-
 	}
 
-	function add_icon_class(weather) {
+	function add_icon_class(weather, destination_class) {
 		var icon_class;
 
 		switch (weather) {
@@ -127,7 +184,7 @@ $(document).ready(function(){
 				icon_class = "wi-alien";
 				break;
 		}
-		$('div[data-city="Portland, OR"] .current-icon').addClass('wi ' + icon_class);
+		$('div[data-city="Portland, OR"] ' + destination_class).addClass('wi ' + icon_class);
 	}
 
 	function post_alert(title, description) {
