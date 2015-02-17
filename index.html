@@ -25,18 +25,21 @@
 		  	<li role="presentation" class="active"><a>Portland, OR</a></li>
 		  	<li role="presentation" class="active"><a>Syracuse, NY</a></li>
 		  	<li role="presentation" class="active"><a id="add-location"><i class="fa fa-plus-circle"></i></a></li>
+		  	<div class="form-group search-field">
+				  <input type="search" class="form-control" id="inputDefault" onkeypress="handle" placeholder="Type city name or zipcode..." />
+				</div>
 			</ul>
+			
 		</div> <!-- /page-header -->
 
 		<!-- LOCATION WRAPPER -->
 		<div class="panel panel-primary" data-city="Portland, OR" hidden>
-			<div class="panel-heading"><strong>Portland, OR</strong></div>
+			<div class="panel-heading"><strong>Portland, OR</strong> <button class="minimize">Minimize</button></div>
   		<div class="panel-body">
-				<div class="container-fluid">
 
 					<!-- ALERT -->
 					<div class="row weather-alert" hidden>
-						<div class="col-md-11">
+						<div class="col-md-12">
 							<div class="panel panel-danger">
 								<div class="panel-heading">ALERT</div>
 								<div class="panel-body alert-text"></div> <!-- /panel-body -->
@@ -45,7 +48,6 @@
 					</div> <!-- /row -->
 
 					<div class="row">
-
 						<!-- CURRENTLY -->
 						<div class="col-md-6">
 							<div class="panel panel-default currently">
@@ -57,8 +59,9 @@
 											<p class="current-summary"></p>
 										</div>
 										<div class="col-md-8 current-temp-wrapper">
-											<p>Currently: <strong><span class="current-temp"></span><i class="wi wi-fahrenheit"></i></strong></p>
+											<p>Temperature: <strong><span class="current-temp"></span><i class="wi wi-fahrenheit"></i></strong></p>
 											<p>Max/min: <strong><span class="max-temp"></span><i class="wi wi-fahrenheit"></i></strong> / <strong><span class="min-temp"></span><i class="wi wi-fahrenheit"></i></strong></p>
+											<p><i class="wi wi-umbrella"><span> chance: </span></i> <span class="current-precip"></span>%</p>
 											<p>Humidity: <span class="current-humidity"></span>%</p>
 											<p>Sunrise: <span class="today-sunrise"></span> / Sunset: <span class="today-sunset"></span></p>
 										</div>
@@ -68,19 +71,21 @@
 						</div>
 
 						<!-- LATER -->
-						<div class="col-md-5">
+						<div class="col-md-6">
 							<div class="panel panel-default later">
 								<div class="panel-heading">LATER</div>
 								<div class="panel-body">
 									<div class="row">
-										<div class="col-md-6 icon-summary-wrapper">
+										<div class="col-md-4 icon-summary-wrapper">
 											<i class="later-icon"></i>
 											<p class="later-summary"></p>
 										</div>
-										<div class="col-md-6 later-temp-wrapper">
+										<div class="col-md-8 later-temp-wrapper">
 											<p>Temperature: <strong><span class="later-temp"></span><i class="wi wi-fahrenheit"></i></strong></p>
 											<p>6-Hour ∆: <strong><span class="later-temp-change"></span><i class="wi wi-fahrenheit"></i></strong></p>
+											<p><i class="wi wi-umbrella"><span> chance: </span></i> <span class="later-precip"></span>%</p>
 											<p>Humidity: <span class="later-humidity"></span>%</p>
+											<br>
 										</div>
 									</div>					
 								</div> <!-- /panel-body -->
@@ -90,53 +95,146 @@
 
 					<!-- HOURLY -->
 					<div class="row">
-						<div class="col-md-11">
+						<div class="col-md-12">
 							<div class="panel panel-default hourly">
-								<div class="panel-heading">HOURLY</div>
+								<div class="panel-heading">HOURLY <button class="minimize">Minimize</button></div>
 								<div class="panel-body">
 									<div class="row">
-										<div class="hour-section col-md-2">
+										<div class="hour-section col-sm-2 col-xs-6">
 											<h3 class="hour1-time"></h3>
 											<i class="hour1-icon"></i>
 											<h5 class="hour1-summary"></h5>
 											<p><i class="wi wi-thermometer"></i><span class="hour1-temp"> </span><i class="wi wi-fahrenheit"></i> / <i class="wi wi-umbrella"></i><span class="hour1-precip"> </span>%</p>
 										</div>
-										<div class="hour-section col-md-2">
+										<div class="hour-section col-sm-2 col-xs-6">
 											<h3 class="hour2-time"></h3>
 											<i class="hour2-icon"></i>
-											<h4 class="hour2-summary"></h4>
-											<p><i class="wi wi-thermometer"></i><span class="hour2-temp"> </span><i class="wi wi-fahrenheit"></i></p>
-											<p><i class="wi wi-umbrella"></i><span class="hour2-precip"> </span>%</p>
+											<h5 class="hour2-summary"></h5>
+											<p><i class="wi wi-thermometer"></i><span class="hour2-temp"> </span><i class="wi wi-fahrenheit"></i> / <i class="wi wi-umbrella"></i><span class="hour2-precip"> </span>%</p>
 										</div>
-										<div class="hour-section col-md-2"></div>
-										<div class="hour-section col-md-2"></div>
-										<div class="hour-section col-md-2"></div>
-										<div class="hour-section col-md-2"></div>
+										<div class="hour-section col-sm-2 col-xs-6">
+											<h3 class="hour3-time"></h3>
+											<i class="hour3-icon"></i>
+											<h5 class="hour3-summary"></h5>
+											<p><i class="wi wi-thermometer"></i><span class="hour3-temp"> </span><i class="wi wi-fahrenheit"></i> / <i class="wi wi-umbrella"></i><span class="hour3-precip"> </span>%</p>
+										</div>
+										<div class="hour-section col-sm-2 col-xs-6">
+											<h3 class="hour4-time"></h3>
+											<i class="hour4-icon"></i>
+											<h5 class="hour4-summary"></h5>
+											<p><i class="wi wi-thermometer"></i><span class="hour4-temp"> </span><i class="wi wi-fahrenheit"></i> / <i class="wi wi-umbrella"></i><span class="hour4-precip"> </span>%</p>
+										</div>
+										<div class="hour-section col-sm-2 col-xs-6">
+											<h3 class="hour5-time"></h3>
+											<i class="hour5-icon"></i>
+											<h5 class="hour5-summary"></h5>
+											<p><i class="wi wi-thermometer"></i><span class="hour5-temp"> </span><i class="wi wi-fahrenheit"></i> / <i class="wi wi-umbrella"></i><span class="hour5-precip"> </span>%</p>
+										</div>
+										<div class="hour-section col-sm-2 col-xs-6">
+											<h3 class="hour6-time"></h3>
+											<i class="hour6-icon"></i>
+											<h5 class="hour6-summary"></h5>
+											<p><i class="wi wi-thermometer"></i><span class="hour6-temp"> </span><i class="wi wi-fahrenheit"></i> / <i class="wi wi-umbrella"></i><span class="hour6-precip"> </span>%</p>
+										</div>
 									</div>
+									<hr>
 									<div class="row">
-										<div class="hour-section col-md-2"></div>
-										<div class="hour-section col-md-2"></div>
-										<div class="hour-section col-md-2"></div>
-										<div class="hour-section col-md-2"></div>
-										<div class="hour-section col-md-2"></div>
-										<div class="hour-section col-md-2"></div>
+										<div class="hour-section col-sm-2 col-xs-6">
+											<h3 class="hour7-time"></h3>
+											<i class="hour7-icon"></i>
+											<h5 class="hour7-summary"></h5>
+											<p><i class="wi wi-thermometer"></i><span class="hour7-temp"> </span><i class="wi wi-fahrenheit"></i> / <i class="wi wi-umbrella"></i><span class="hour7-precip"> </span>%</p>
+										</div>
+										<div class="hour-section col-sm-2 col-xs-6">
+											<h3 class="hour8-time"></h3>
+											<i class="hour8-icon"></i>
+											<h5 class="hour8-summary"></h5>
+											<p><i class="wi wi-thermometer"></i><span class="hour8-temp"> </span><i class="wi wi-fahrenheit"></i> / <i class="wi wi-umbrella"></i><span class="hour8-precip"> </span>%</p>
+										</div>
+										<div class="hour-section col-sm-2 col-xs-6">
+											<h3 class="hour9-time"></h3>
+											<i class="hour9-icon"></i>
+											<h5 class="hour9-summary"></h5>
+											<p><i class="wi wi-thermometer"></i><span class="hour9-temp"> </span><i class="wi wi-fahrenheit"></i> / <i class="wi wi-umbrella"></i><span class="hour9-precip"> </span>%</p>
+										</div>
+										<div class="hour-section col-sm-2 col-xs-6">
+											<h3 class="hour10-time"></h3>
+											<i class="hour10-icon"></i>
+											<h5 class="hour10-summary"></h5>
+											<p><i class="wi wi-thermometer"></i><span class="hour10-temp"> </span><i class="wi wi-fahrenheit"></i> / <i class="wi wi-umbrella"></i><span class="hour10-precip"> </span>%</p>
+										</div>
+										<div class="hour-section col-sm-2 col-xs-6">
+											<h3 class="hour11-time"></h3>
+											<i class="hour11-icon"></i>
+											<h5 class="hour11-summary"></h5>
+											<p><i class="wi wi-thermometer"></i><span class="hour11-temp"> </span><i class="wi wi-fahrenheit"></i> / <i class="wi wi-umbrella"></i><span class="hour11-precip"> </span>%</p>
+										</div>
+										<div class="hour-section col-sm-2 col-xs-6">
+											<h3 class="hour12-time"></h3>
+											<i class="hour12-icon"></i>
+											<h5 class="hour12-summary"></h5>
+											<p><i class="wi wi-thermometer"></i><span class="hour12-temp"> </span><i class="wi wi-fahrenheit"></i> / <i class="wi wi-umbrella"></i><span class="hour12-precip"> </span>%</p>
+										</div>
 									</div>
 								</div> <!-- /panel-body -->
 							</div> <!-- /panel -->
 						</div>
 					</div> <!-- /row -->
 
-					<!-- 5 DAY FORECAST -->
+					<!-- 6 DAY FORECAST -->
 					<div class="row">
-						<div class="col-md-11">
-							<div class="panel panel-default 5-day-forecast">
-								<div class="panel-heading">5 DAY FORECAST</div>
-								<div class="panel-body"></div> <!-- /panel-body -->
+						<div class="col-md-12">
+							<div class="panel panel-default forecast">
+								<div class="panel-heading">6 DAY FORECAST <button class="minimize">Minimize</button></div>
+								<div class="panel-body">
+									<div class="row">
+										<div class="forecast-section col-sm-2 col-xs-6">
+											<h3 class="forecast1-day"></h3>
+											<i class="forecast1-icon"></i>
+											<h5 class="forecast1-summary"></h5>
+											<p><i class="wi wi-thermometer"></i><span class="forecast1-temp-max"> </span><i class="wi wi-fahrenheit"></i> / <span class="forecast1-temp-min"> </span><i class="wi wi-fahrenheit"></i></p>
+											<p><i class="wi wi-umbrella"></i><span class="forecast1-precip"> </span>%</p>
+										</div>
+										<div class="forecast-section col-sm-2 col-xs-6">
+											<h3 class="forecast2-day"></h3>
+											<i class="forecast2-icon"></i>
+											<h5 class="forecast2-summary"></h5>
+											<p><i class="wi wi-thermometer"></i><span class="forecast2-temp-max"> </span><i class="wi wi-fahrenheit"></i> / <span class="forecast2-temp-min"> </span><i class="wi wi-fahrenheit"></i></p>
+											<p><i class="wi wi-umbrella"></i><span class="forecast2-precip"> </span>%</p>
+										</div>
+										<div class="forecast-section col-sm-2 col-xs-6">
+											<h3 class="forecast3-day"></h3>
+											<i class="forecast3-icon"></i>
+											<h5 class="forecast3-summary"></h5>
+											<p><i class="wi wi-thermometer"></i><span class="forecast3-temp-max"> </span><i class="wi wi-fahrenheit"></i> / <span class="forecast3-temp-min"> </span><i class="wi wi-fahrenheit"></i></p>
+											<p><i class="wi wi-umbrella"></i><span class="forecast3-precip"> </span>%</p>
+										</div>
+										<div class="forecast-section col-sm-2 col-xs-6">
+											<h3 class="forecast4-day"></h3>
+											<i class="forecast4-icon"></i>
+											<h5 class="forecast4-summary"></h5>
+											<p><i class="wi wi-thermometer"></i><span class="forecast4-temp-max"> </span><i class="wi wi-fahrenheit"></i> / <span class="forecast4-temp-min"> </span><i class="wi wi-fahrenheit"></i></p>
+											<p><i class="wi wi-umbrella"></i><span class="forecast4-precip"> </span>%</p>
+										</div>
+										<div class="forecast-section col-sm-2 col-xs-6">
+											<h3 class="forecast5-day"></h3>
+											<i class="forecast5-icon"></i>
+											<h5 class="forecast5-summary"></h5>
+											<p><i class="wi wi-thermometer"></i><span class="forecast5-temp-max"> </span><i class="wi wi-fahrenheit"></i> / <span class="forecast5-temp-min"> </span><i class="wi wi-fahrenheit"></i></p>
+											<p><i class="wi wi-umbrella"></i><span class="forecast5-precip"> </span>%</p>
+										</div>
+										<div class="forecast-section col-sm-2 col-xs-6">
+											<h3 class="forecast6-day"></h3>
+											<i class="forecast6-icon"></i>
+											<h5 class="forecast6-summary"></h5>
+											<p><i class="wi wi-thermometer"></i><span class="forecast6-temp-max"> </span><i class="wi wi-fahrenheit"></i> / <span class="forecast6-temp-min"> </span><i class="wi wi-fahrenheit"></i></p>
+											<p><i class="wi wi-umbrella"></i><span class="forecast6-precip"> </span>%</p>
+										</div>
+									</div>
+								</div> <!-- /panel-body -->
 							</div> <!-- /panel -->
-						</div>
+						</div> <!-- col-md-11 -->
 					</div> <!-- /row -->
-
-				</div> <!-- /container -->
   		</div> <!-- /panel-body -->
 		</div> <!-- /panel-default -->
 	</div><!-- /container -->

@@ -2,6 +2,11 @@ li a.disabled {
 	cursor: default;
 }
 
+.search-field {
+	float: right;
+	width: 25rem;
+}
+
 /*CURRENTLY*/
 
 .icon-summary-wrapper i {
@@ -9,9 +14,12 @@ li a.disabled {
 }
 
 .currently .current-icon {
-	padding: 2rem 0 2rem 2rem;
+	padding: 2rem 0;
 	margin: 0 auto;
 	font-size: 8rem;
+	display: inline-block;
+	width: 100%;
+	text-align: center;
 }
 
 .currently .current-summary {
@@ -25,11 +33,16 @@ li a.disabled {
 	font-size: 2rem;
 }
 
+
 /*LATER*/
+
 .later .later-icon {
-	padding: 2rem 0 2rem 2rem;
+	padding: 2rem 0;
 	margin: 0 auto;
 	font-size: 8rem;
+	text-align: center;
+	display: inline-block;
+	width: 100%;
 }
 
 .later .later-summary {
@@ -43,13 +56,27 @@ li a.disabled {
 	font-size: 2rem;
 }
 
+
 /*HOURLY*/
-.hour-section h3 {
-	margin-top: 0;
+
+.hourly {
+	margin: 0 15px 15px 15px;
 }
 
-.hour-section i:nth-child(2) {
+.hour-section * {
+	margin: 10px auto;
+	text-align: center;
+}
+
+.hour-section i[class*="icon"] {
+	display: inline-block;
+	width: 100%;
 	font-size: 4rem;
+}
+
+.hour-section h3 {
+	margin-top: 0;
+	font-weight: bold;
 }
 
 .hour-section i.wi-thermometer {
@@ -58,4 +85,48 @@ li a.disabled {
 
 .hour-section i.wi-umbrella {
 	font-size: 1.7rem;
+}
+
+
+/*FORECAST*/
+
+.forecast {
+	margin: 0 15px;
+}
+
+.forecast-section * {
+	margin: 10px auto;
+	text-align: center;
+}
+
+.forecast-section h3 {
+	font-weight: bold;
+}
+
+.forecast-section p {
+	margin: 0;
+}
+
+.forecast-section i[class*="icon"] {
+	margin: 20px 0;
+	display:inline-block;
+	width: 100%;
+	font-size: 4rem;
+}
+
+.forecast-section i.wi-thermometer {
+	font-size: 2.5rem;
+}
+
+.forecast-section i.wi-umbrella {
+	font-size: 1.7rem;
+}
+
+
+/*MISC*/
+
+button.minimize {
+	float: right;
+	color: #333333;
+	width: 9rem;
 }
