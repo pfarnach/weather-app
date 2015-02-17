@@ -2,13 +2,23 @@ var latitude, longitude, formatted_search_input;
 
 $(document).ready(function(){
 
+	$('.panel-main').hide();
+	$('#not-found-msg').hide();
+
 	$('#search-field').keypress(function(e) {
 		if (e.which == 13) {
 			var search_input = $(this).val();
 			$(this).val("");
 			// console.log(search_input.trim().replace(' ','+').replace(',',''));
 			formatted_search_input = search_input.trim().replace(' ','+').replace(',','');
-			get_coordinates(formatted_search_input);
+
+			$('.panel-main .weather-alert').hide();
+			$('.panel-main').hide();
+			$('#welcome-msg').hide();
+			$('#not-found-msg').hide();
+
+			// encode the URL search search before sending it off to get_coordinates / Google API
+			get_coordinates(encodeURIComponent(formatted_search_input));
 		}
 	});
 
@@ -33,11 +43,19 @@ $(document).ready(function(){
 					latitude = data['results'][0]['geometry']['location']['lat'];
 					longitude = data['results'][0]['geometry']['location']['lng'];
 					console.log(data);
-					get_weather();		
+					
+					$('.panel-main').delay(500).fadeIn(800);
+					$('.panel-main button.minimize').show();
+					$('.panel-main .panel-heading strong').html(data['results'][0]['formatted_address']);
+
+
+					get_weather();
 				}
 				catch(err) {
+					$('.panel-main').hide();
+					$('#not-found-msg').fadeIn();
+					$('.panel-main button.minimize').hide();
 					console.log("Invalid location.");
-					$('.container.panel-primary').hide();
 				}
 				
 			},
@@ -50,8 +68,6 @@ $(document).ready(function(){
 		});
 
 	}
-	
-	console.log(latitude + " " + longitude + "!");
 
 	function get_weather() {
 		$.ajax({
@@ -272,9 +288,6 @@ $(document).ready(function(){
 		$('div[data-city="Portland, OR"] .weather-alert').show();
 		$('div[data-city="Portland, OR"] .alert-text').html(title);
 	}
-
-	// delays displaying the whole screen to give ajax request some breathing room
-	$('div[data-city="Portland, OR"]').delay(800).fadeIn(800);
 
 	// minimize buttons
 	$('button.minimize').on('click', function(){

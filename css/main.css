@@ -1,10 +1,62 @@
-li a.disabled {
-	cursor: default;
+/*
+By Pat Farnach
+Fonts by FontAwesome, Erik Flowers (Weather icons), and Google Fonts
+*/
+
+/* title */
+.page-title h1 {
+	font-family: 'Eater', cursive;
+	text-align: center;
 }
 
+.page-title i {
+	font-size: 7rem;
+	margin-right: 1rem;
+}
+
+/* info */
+.info-tab {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+}
+
+.info-tab a {
+	text-decoration: none;
+	color: rgba(0,0,0,0.2);
+	transition: -webkit-transform .5s ease, color .5s ease;
+	transition: transform .5s ease, color .5s ease;
+}
+
+.info-tab a:hover,
+.info-tab a:focus {
+	color: black;
+	-webkit-transform: rotateZ(360deg); /* Chrome, Safari, Opera */
+     transform: rotateZ(360deg);
+
+}
+
+.info-tab a i {
+	font-size: 3rem;
+}
+
+/* search */
 .search-wrapper {
-	float: right;
-	width: 25rem;
+	width: 35rem;
+	margin: 0 auto 15px;
+}
+
+#welcome-msg-wrapper {
+	margin: 0 auto;
+	width: 70%;
+}
+
+
+/*welcome message*/
+#welcome-msg,
+#not-found-msg {
+	margin-top: 10rem;
+	text-align: center;
 }
 
 /*CURRENTLY*/
