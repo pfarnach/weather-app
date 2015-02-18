@@ -21,7 +21,9 @@
 	<div class="container">
 		<div class="page-title">
 			<h1><strong><i class="wi wi-lightning"></i> Another Weather App</strong></h1>
+			<p>Powered by <a href="http://http://forecast.io/">Forecast.io API</a> and the <a href="https://developers.google.com/maps/documentation/geocoding/">Google Geocoding API</a></p>
 		</div>
+
 
 		<div class="info-tab">
 			<a href="http://patfarnach.com" target="_blank"><i class="fa fa-info-circle"></i></a>
@@ -35,20 +37,21 @@
 		  	<li role="presentation" class="active"><a>Syracuse, NY</a></li>
 		  	<li role="presentation" class="active"><a id="add-location"><i class="fa fa-plus-circle"></i></a></li>  -->
 		  	<div class="form-group search-wrapper">
-				  <input type="search" class="form-control" id="search-field" placeholder="Type locale name or zipcode..." autofocus />
+				  <input type="search" class="form-control" id="search-field" placeholder="Type address, city name or zip code..." autofocus />
 				</div>
 			</ul>
 			
 		</div> <!-- /page-header -->
 
 		<!-- LOCATION WRAPPER -->
-			
-		<h1 id="welcome-msg">Search for a location to get the fun started</h1>
-
+		<div class="welcome-msg" hidden>
+			<h1 id="welcome-msg">Search for a location to get the fun started</h1>
+			<h3 id="welcome-msg-info">You can search by street address, locale name or zip code anywhere in the world</h3>
+		</div>
 		<h1 id="not-found-msg">Sorry, the location you entered could not be found</h1>
 
 		<div class="panel panel-primary panel-main" data-city="Portland, OR" hidden>
-			<div class="panel-heading"><strong></strong> <button class="minimize">Minimize</button></div>
+			<div class="panel-heading"><strong></strong> <button class="minimize">-</button></div>
   		<div class="panel-body">
 
 					<!-- ALERT -->
@@ -111,7 +114,7 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="panel panel-default hourly">
-								<div class="panel-heading">HOURLY <button class="minimize">Minimize</button></div>
+								<div class="panel-heading">HOURLY <button class="minimize">-</button></div>
 								<div class="panel-body">
 									<div class="row">
 										<div class="hour-section col-sm-2 col-xs-6">
@@ -199,7 +202,7 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="panel panel-default forecast">
-								<div class="panel-heading">6 DAY FORECAST <button class="minimize">Minimize</button></div>
+								<div class="panel-heading">6 DAY FORECAST <button class="minimize">-</button></div>
 								<div class="panel-body">
 									<div class="row">
 										<div class="forecast-section col-sm-2 col-xs-6">
@@ -254,3 +257,4 @@
 	</div><!-- /container -->
 </body>
 </html>
+

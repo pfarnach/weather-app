@@ -2,9 +2,10 @@ var latitude, longitude, formatted_search_input;
 
 $(document).ready(function(){
 
-	$('.panel-main').hide();
 	$('#not-found-msg').hide();
+	$('.welcome-msg').fadeIn(800);
 
+	// handles search input field -- if enter pressed, will do search
 	$('#search-field').keypress(function(e) {
 		if (e.which == 13) {
 			var search_input = $(this).val();
@@ -14,7 +15,7 @@ $(document).ready(function(){
 
 			$('.panel-main .weather-alert').hide();
 			$('.panel-main').hide();
-			$('#welcome-msg').hide();
+			$('.welcome-msg').hide();
 			$('#not-found-msg').hide();
 
 			// encode the URL search search before sending it off to get_coordinates / Google API
@@ -34,9 +35,8 @@ $(document).ready(function(){
 			dataType: 'json',
 
 			// The URL to make the request to.
-			// url: "https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyBsQg7uGxTdAUNaGVw4qWQ1wiYkfoPx6HQ",
-			// url: "https://maps.googleapis.com/maps/api/geocode/json?address=manlius+ny&key=AIzaSyBsQg7uGxTdAUNaGVw4qWQ1wiYkfoPx6HQ",
-			url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + location_name + "&key=AIzaSyBsQg7uGxTdAUNaGVw4qWQ1wiYkfoPx6HQ",
+			// Don't steal my API key
+			url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + location_name + "&key=YOURKEYHERE",
 
 			success: function(data) {
 				try {
@@ -79,9 +79,8 @@ $(document).ready(function(){
 			dataType: 'jsonp',
 
 			// The URL to make the request to.
-			url: "https://api.forecast.io/forecast/e27ae1f9f8be2c73c1648f94f81cf04a/" + latitude + "," + longitude,
-			// url: "https://api.forecast.io/forecast/e27ae1f9f8be2c73c1648f94f81cf04a/43.0469,-76.1444",
-			// url: "https://api.forecast.io/forecast/e27ae1f9f8be2c73c1648f94f81cf04a/40.4,-3.6833",
+			// Don't steal my API key
+			url: "https://api.forecast.io/forecast/YOURKEYHERE/" + latitude + "," + longitude,
 
 			success: function(data) {
 				// Here's where you handle a successful response.
@@ -295,7 +294,7 @@ $(document).ready(function(){
 		$(this).parent().next().slideToggle(500);
 
 		// changes button text depending on what it currently is
-		$(this).html($(this).html() === "Expand" ? "Minimize" : "Expand");
+		$(this).html($(this).html() === "+" ? "-" : "+");
 	});
 
 });
