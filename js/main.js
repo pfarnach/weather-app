@@ -10,7 +10,6 @@ $(document).ready(function(){
 		if (e.which == 13) {
 			var search_input = $(this).val();
 			$(this).val("");
-			// console.log(search_input.trim().replace(' ','+').replace(',',''));
 			formatted_search_input = search_input.trim().replace(' ','+').replace(',','');
 
 			$('.panel-main .weather-alert').hide();
@@ -36,13 +35,13 @@ $(document).ready(function(){
 
 			// The URL to make the request to.
 			// Don't steal my API key
-			url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + location_name + "&key=YOURKEYHERE",
+			url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + location_name + "&key=AIzaSyBsQg7uGxTdAUNaGVw4qWQ1wiYkfoPx6HQ",
 
 			success: function(data) {
 				try {
 					latitude = data['results'][0]['geometry']['location']['lat'];
 					longitude = data['results'][0]['geometry']['location']['lng'];
-					console.log(data);
+					// console.log(data);
 					
 					$('.panel-main').delay(500).fadeIn(800);
 					$('.panel-main button.minimize').show();
@@ -55,7 +54,6 @@ $(document).ready(function(){
 					$('.panel-main').hide();
 					$('#not-found-msg').fadeIn();
 					$('.panel-main button.minimize').hide();
-					console.log("Invalid location.");
 				}
 				
 			},
@@ -80,7 +78,7 @@ $(document).ready(function(){
 
 			// The URL to make the request to.
 			// Don't steal my API key
-			url: "https://api.forecast.io/forecast/YOURKEYHERE/" + latitude + "," + longitude,
+			url: "https://api.forecast.io/forecast/e27ae1f9f8be2c73c1648f94f81cf04a/" + latitude + "," + longitude,
 
 			success: function(data) {
 				// Here's where you handle a successful response.
@@ -96,7 +94,7 @@ $(document).ready(function(){
 
 	function format_data(data) {
 
-		console.log(data);
+		// console.log(data);
 
 
 		// ** CURRENTLY **
@@ -127,17 +125,14 @@ $(document).ready(function(){
 
 		// ** ALERTS **
 		try {
-			var alert_description = data['alerts'][0]['description'];
-			var alert_expires = data['alerts'][0]['expires'];
-			var alert_time = data['alerts'][0]['time'];
+			var alert_url = data['alerts'][0]['uri'];
 			var alert_title = data['alerts'][0]['title'];
-
-			post_alert(alert_title, alert_description);	
-		} 
-		catch(err) {
-			console.log("No current alerts.");
+			post_alert(alert_title, alert_url);	
+		} catch(err) {
+			console.log("No current weather alerts.");
 		}
 		
+
 		// ** DAILY **
 		// Today's max/min temp
 		var today_max_temp = Math.round(data['daily']['data'][0]['temperatureMax']);
@@ -146,10 +141,11 @@ $(document).ready(function(){
 		$('div[data-city="Portland, OR"] .current-temp-wrapper .min-temp').html(today_min_temp);
 
 		// Sunrise/Sunset
-		var sunrise = new Date(data['daily']['data'][0]['sunriseTime'] * 1000),
-			sunset = new Date(data['daily']['data'][0]['sunsetTime'] * 1000);
-		$('div[data-city="Portland, OR"] .current-temp-wrapper .today-sunrise').html(sunrise.toLocaleTimeString(navigator.language, {timeZone: data['timezone'], hour: '2-digit', minute:'2-digit'}));
-		$('div[data-city="Portland, OR"] .current-temp-wrapper .today-sunset').html(sunset.toLocaleTimeString(navigator.language, {timeZone: data['timezone'], hour: '2-digit', minute:'2-digit'}));
+		var sunrise = moment(data['daily']['data'][0]['sunriseTime'] * 1000).utcOffset(data['offset']).format("h:mm a");
+		var sunset = moment(data['daily']['data'][0]['sunsetTime'] * 1000).utcOffset(data['offset']).format("h:mm a");
+		
+		$('div[data-city="Portland, OR"] .current-temp-wrapper .today-sunrise').html(sunrise);
+		$('div[data-city="Portland, OR"] .current-temp-wrapper .today-sunset').html(sunset);
 
 
 		// ** LATER ** 
@@ -184,16 +180,14 @@ $(document).ready(function(){
 
 		// ** HOURLY **
 		for (var i=0; i < 12; i++) {
-			var time = new Date(data['hourly']['data'][i]['time'] * 1000),
+			var time = moment(data['hourly']['data'][i]['time'] * 1000).utcOffset(data['offset']).format("hA");
 				temp = Math.round(data['hourly']['data'][i]['temperature']),
 				summary = data['hourly']['data'][i]['summary'],
 				icon = data['hourly']['data'][i]['icon'],
 				precip = Math.round(data['hourly']['data'][i]['precipProbability'] * 100);
 
-			var hour = time.toLocaleTimeString(navigator.language, {timeZone: data['timezone'], hour: 'numeric'});
-
 			// time
-			$('div[data-city="Portland, OR"] .hour' + [i+1] +'-time').html(hour);
+			$('div[data-city="Portland, OR"] .hour' + [i+1] +'-time').html(time);
 
 			// temp
 			$('div[data-city="Portland, OR"] .hour' + [i+1] +'-temp').html(" " + temp);
@@ -212,14 +206,13 @@ $(document).ready(function(){
 		// ** FORECAST ** 
 
 		for (var i = 1; i < 7; i++) {
-			var time = new Date(data['daily']['data'][i]['time'] * 1000),
+			// collects variables for each day
+			var time = moment(data['daily']['data'][i]['time'] * 1000).utcOffset(data['offset']).format("dddd");
 				temp_min = Math.round(data['daily']['data'][i]['temperatureMin']),
 				temp_max = Math.round(data['daily']['data'][i]['temperatureMax']),
 				summary = (data['daily']['data'][i]['summary']).slice(0,-1),
 				precip = Math.round(data['daily']['data'][i]['precipProbability'] * 100),
 				icon = data['daily']['data'][i]['icon'];
-
-			var day = (time.toLocaleTimeString(navigator.language, {timeZone: data['timezone'], weekday:'long'}).slice(0,-12));
 
 			// temp
 			$('div[data-city="Portland, OR"] .forecast' + [i] +'-temp-max').html(" " + temp_max);
@@ -232,7 +225,7 @@ $(document).ready(function(){
 			add_icon_class(icon, '.forecast' + [i] +'-icon');
 
 			// weekday
-			$('div[data-city="Portland, OR"] .forecast' + [i] +'-day').html(" " + day);
+			$('div[data-city="Portland, OR"] .forecast' + [i] +'-day').html(" " + time);
 
 			// precip
 			$('div[data-city="Portland, OR"] .forecast' + [i] +'-precip').html(" " + precip);	
@@ -283,9 +276,9 @@ $(document).ready(function(){
 	}
 
 
-	function post_alert(title, description) {
+	function post_alert(alert_title, alert_url) {
 		$('div[data-city="Portland, OR"] .weather-alert').show();
-		$('div[data-city="Portland, OR"] .alert-text').html(title);
+		$('div[data-city="Portland, OR"] .alert-text').html(alert_title + " -- <a target='_blank' href='" + alert_url + "'>Read more</a>");
 	}
 
 	// minimize buttons

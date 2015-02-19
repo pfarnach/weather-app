@@ -14,18 +14,6 @@ Fonts by FontAwesome, Erik Flowers (Weather icons), and Google Fonts
 	margin-right: 1rem;
 }
 
-.page-title p {
-	font-size: 1.2rem;
-	margin-top: 2rem;
-	text-align: center;
-	opacity: 0.6;
-}
-
-.page-title p a {
-	text-decoration: none;
-	color: black;
-}
-
 /* info */
 .info-tab {
 	position: absolute;
@@ -49,6 +37,29 @@ Fonts by FontAwesome, Erik Flowers (Weather icons), and Google Fonts
 
 .info-tab a i {
 	font-size: 3rem;
+}
+
+.credit-text {
+	font-size: 1.2rem;
+	opacity: 0.3;
+	position: absolute;
+	top: 50%;
+	right: -132px;
+	-webkit-transform: rotate(-90deg);
+			transform: rotate(-90deg);
+
+	-webkit-transition: opacity .7s ease;
+			transition: opacity .7s ease;
+}
+
+.credit-text:hover,
+.credit-text:focus {
+	opacity: 1;
+}
+
+.credit-text a {
+	text-decoration: none;
+	color: black;
 }
 
 /* search */

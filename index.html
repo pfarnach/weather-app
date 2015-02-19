@@ -14,6 +14,7 @@
 
 	<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	<script src="js/moment.min.js"></script>
 	<script src="js/main.js"></script>
 
 </head>
@@ -21,7 +22,7 @@
 	<div class="container">
 		<div class="page-title">
 			<h1><strong><i class="wi wi-lightning"></i> Another Weather App</strong></h1>
-			<p>Powered by <a href="http://http://forecast.io/">Forecast.io API</a> and the <a href="https://developers.google.com/maps/documentation/geocoding/">Google Geocoding API</a></p>
+			<p class="credit-text">Powered by <a href="http://http://forecast.io/">Forecast.io API</a> and the <a href="https://developers.google.com/maps/documentation/geocoding/">Google Geocoding API</a></p>
 		</div>
 
 
@@ -51,14 +52,14 @@
 		<h1 id="not-found-msg">Sorry, the location you entered could not be found</h1>
 
 		<div class="panel panel-primary panel-main" data-city="Portland, OR" hidden>
-			<div class="panel-heading"><strong></strong> <button class="minimize">-</button></div>
+			<div class="panel-heading"><strong></strong></div>
   		<div class="panel-body">
 
 					<!-- ALERT -->
 					<div class="row weather-alert" hidden>
 						<div class="col-md-12">
 							<div class="panel panel-danger">
-								<div class="panel-heading">ALERT</div>
+								<div class="panel-heading">ALERT<button class="minimize">-</button></div>
 								<div class="panel-body alert-text"></div> <!-- /panel-body -->
 							</div> <!-- /panel -->
 						</div>
@@ -68,7 +69,7 @@
 						<!-- CURRENTLY -->
 						<div class="col-md-6">
 							<div class="panel panel-default currently">
-								<div class="panel-heading">CURRENTLY</div>
+								<div class="panel-heading">CURRENTLY<button class="minimize">-</button></div>
 								<div class="panel-body">
 									<div class="row">
 										<div class="col-md-4 icon-summary-wrapper">
@@ -90,7 +91,7 @@
 						<!-- LATER -->
 						<div class="col-md-6">
 							<div class="panel panel-default later">
-								<div class="panel-heading">LATER</div>
+								<div class="panel-heading">LATER<button class="minimize">-</button></div>
 								<div class="panel-body">
 									<div class="row">
 										<div class="col-md-4 icon-summary-wrapper">
